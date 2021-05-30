@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArtistsService } from './artists.service';
 
 @Component({
   selector: 'app-artists',
@@ -7,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArtistsComponent implements OnInit {
 
-  constructor() { }
+  artists: any;
+
+  constructor(readonly artistService: ArtistsService) { }
 
   ngOnInit(): void {
-    console.log('test')
+    console.log('test');
+    this.artistService.searchArtists('em').subscribe(artists => {
+      console.log('artists', artists);
+      this.artists = artists;
+    });
   }
 
 }

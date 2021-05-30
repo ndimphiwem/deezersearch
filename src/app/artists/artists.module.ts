@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ArtistsComponent } from './artists.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ArtistComponent } from './artist/artist.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -24,7 +25,8 @@ export const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ]
 })
 export class ArtistsModule { }
