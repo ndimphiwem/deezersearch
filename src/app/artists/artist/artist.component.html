@@ -1,1 +1,39 @@
-<p>artist works!</p>
+<div class="container mt-3">
+  <p class="note note-light row mx-0 px-0 justify-content-between align-items-center">
+    <a role="button" class="text-dark me-3 d-flex align-items-center col-md-4 mb-2 mb-md-0" [routerLink]="'/artists'">
+      <i class="fas fa-arrow-circle-left fa-2x me-2"></i> <span class="fw-bold fs-6">Back to Artists</span>
+    </a>
+  </p>
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <div class="bg-image">
+        <img
+          [src]="artist?.picture_xl"
+          class="img-fluid"
+        />
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <h2 class="text-white mb-0">
+              {{ artist?.name }}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <h4>Top Tracks</h4>
+      <div class="row" *ngFor="let track of topTracks">
+        <div class="col-10">
+          <p>
+            {{ track?.title }}
+          </p>
+        </div>
+        <div class="col-2">
+          <p>
+            {{ track?.duration | songDuration}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

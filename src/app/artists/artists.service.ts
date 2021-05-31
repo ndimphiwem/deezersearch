@@ -14,7 +14,23 @@ export class ArtistsService {
   searchArtists (searchTerm: any) {
     const url = `${this.apiPath}/search/artist?q=${searchTerm}`;
     return this.http.get(url).pipe(
-      map((searchResults: any) => searchResults.data)
+      /**
+       * This map will only return the "data" property from the response and
+       * also order by the number of fans in desc order (nb_fan)
+       */
+      map((searchResults: any) => searchResults?.data?.sort((a: any, b: any) => b?.nb_fan - a?.nb_fan))
+    );
+  }
+
+  getArtist (artistId: any) {
+    const url = `${this.apiPath}/artist/${artistId}`;
+    return this.http.get(url);
+  }
+
+  getArtistTopTracks(artistId: any, numberOfTracks: number) {
+    const url = `${this.apiPath}/artist/${artistId}/top?limit=${numberOfTracks}`;
+    return this.http.get(url).pipe(
+      map((trackResults: any) => trackResults?.data)
     );
   }
 }

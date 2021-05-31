@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs/operators';
 import { ArtistsService } from './artists.service';
 
 @Component({
@@ -9,15 +10,23 @@ import { ArtistsService } from './artists.service';
 export class ArtistsComponent implements OnInit {
 
   artists: any;
+  loading = false;
 
   constructor(readonly artistService: ArtistsService) { }
 
-  ngOnInit(): void {
-    console.log('test');
-    this.artistService.searchArtists('em').subscribe(artists => {
-      console.log('artists', artists);
-      this.artists = artists;
-    });
-  }
+  ngOnInit(): void { }
 
+  getArtists(searchTerm: string) {
+    // Only show results if the search term is 3 letters or more
+    if (searchTerm?.length > 2) {
+      this.loading = true;
+      this.artistService.searchArtists(searchTerm).pipe(
+        finalize(() => this.loading = false)
+      ).subscribe(artists => {
+        this.artists = artists;
+      });
+    } else if (searchTerm?.length === 0) {
+      this.artists = [];
+    }
+  }
 }
