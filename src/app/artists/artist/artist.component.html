@@ -20,7 +20,7 @@
               <h1 class="text-white mb-0">
                 {{ artist?.name }}
               </h1>
-              <p class="text-white fs-5">
+              <p class="text-white fs-5 text-decoration-underline">
                 {{ artist?.nb_fan + ' Fans' }} 
               </p>
             </div>
@@ -30,9 +30,10 @@
     </div>
     <div class="col-12 col-md-4 shadow-5 py-3 rounded">
       <h3 class="mb-3">Top Tracks</h3>
-      <div class="row" *ngFor="let track of topTracks; let i = index;">
+      <div class="row align-items-center" *ngFor="let track of topTracks; let i = index;">
         <div class="col-10">
           <p class="mb-1 fw-bold">
+            <i class="fab fa-itunes-note me-2"></i>
             {{ track?.title }}
           </p>
         </div>
@@ -46,9 +47,9 @@
   </div>
   <div class="row"  *ngIf="!loading && albums">
     <div class="col-12">
-      <h3 class="note note-light">
+      <h5 class="note note-light fw-bold">
         Albums
-      </h3>
+      </h5>
     </div>
     <div class="col-12 col-md-4 col-lg-3 mb-3 text-center" *ngFor="let album of albums">
       <div class="card py-3 text-center">

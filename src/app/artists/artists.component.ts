@@ -4,8 +4,7 @@ import { ArtistsService } from './artists.service';
 
 @Component({
   selector: 'app-artists',
-  templateUrl: './artists.component.html',
-  styleUrls: ['./artists.component.scss']
+  templateUrl: './artists.component.html'
 })
 export class ArtistsComponent implements OnInit {
 

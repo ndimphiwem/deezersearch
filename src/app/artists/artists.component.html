@@ -17,7 +17,9 @@
           />
         </a>
         <div class="card-body">
-          <h5 class="card-title fw-normal">{{ artist?.name }}</h5>
+          <a [routerLink]="artist?.id" role="button">
+            <h5 class="card-title fw-bold text-dark">{{ artist?.name }}</h5>
+          </a>
           <p class="card-text mb-1">
             {{ artist?.nb_fan }} Fans
           </p>
