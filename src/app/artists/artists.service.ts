@@ -33,4 +33,11 @@ export class ArtistsService {
       map((trackResults: any) => trackResults?.data)
     );
   }
+
+  getArtistAlbums(artistName: any, artistId: any) {
+    const url = `${this.apiPath}/search/album?q=${artistName}`;
+    return this.http.get(url).pipe(
+      map((albumResults: any) => albumResults?.data?.filter((album: any) => album?.artist?.id === artistId))
+    );
+  }
 }

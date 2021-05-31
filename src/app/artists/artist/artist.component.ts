@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, switchMap, tap } from 'rxjs/operators';
 import { ArtistsService } from '../artists.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class ArtistComponent implements OnInit {
   loading = false;
   artist: any;
   topTracks: any;
+  albums: any;
 
   constructor(readonly route: ActivatedRoute, readonly artistService: ArtistsService) {
     this.route.url.subscribe(() => {
@@ -33,11 +34,14 @@ export class ArtistComponent implements OnInit {
       this.artistService.getArtist(artistId),
       this.artistService.getArtistTopTracks(artistId, 5)
     ]).pipe(
+      tap(([artist, topTracks]) => {
+        this.artist = artist;
+        this.topTracks = topTracks;
+      }),
+      switchMap(() => this.artistService.getArtistAlbums(this.artist?.name, this.artist?.id).pipe(
+        tap(albums => this.albums = albums)
+      )),
       finalize(() => this.loading = false)
-    ).subscribe(([artist, topTracks]) => {
-      this.artist = artist;
-      this.topTracks = topTracks;
-    });
+    ).subscribe();
   }
-
 }

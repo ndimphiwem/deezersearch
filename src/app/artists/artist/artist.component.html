@@ -4,34 +4,62 @@
       <i class="fas fa-arrow-circle-left fa-2x me-2"></i> <span class="fw-bold fs-6">Back to Artists</span>
     </a>
   </p>
-  <div class="row">
+  <div class="d-flex justify-content-center py-5" *ngIf="loading">
+    <div class="spinner-border" role="status"></div>
+  </div>
+  <div class="row mb-5" *ngIf="!loading && artist && topTracks">
     <div class="col-12 col-md-8">
-      <div class="bg-image">
+      <div class="bg-image max-height-vh--50 rounded shadow-3">
         <img
           [src]="artist?.picture_xl"
           class="img-fluid"
         />
-        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-          <div class="d-flex justify-content-center align-items-center h-100">
-            <h2 class="text-white mb-0">
-              {{ artist?.name }}
-            </h2>
+        <div class="mask bg__mask">
+          <div class="row mx-0 justify-content-center align-items-center h-100">
+            <div class="col-auto">
+              <h1 class="text-white mb-0">
+                {{ artist?.name }}
+              </h1>
+              <p class="text-white fs-5">
+                {{ artist?.nb_fan + ' Fans' }} 
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-4">
-      <h4>Top Tracks</h4>
-      <div class="row" *ngFor="let track of topTracks">
+    <div class="col-12 col-md-4 shadow-5 py-3 rounded">
+      <h3 class="mb-3">Top Tracks</h3>
+      <div class="row" *ngFor="let track of topTracks; let i = index;">
         <div class="col-10">
-          <p>
+          <p class="mb-1 fw-bold">
             {{ track?.title }}
           </p>
         </div>
         <div class="col-2">
-          <p>
+          <p class="mb-1 fw-bold">
             {{ track?.duration | songDuration}}
           </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row"  *ngIf="!loading && albums">
+    <div class="col-12">
+      <h3 class="note note-light">
+        Albums
+      </h3>
+    </div>
+    <div class="col-12 col-md-4 col-lg-3 mb-3 text-center" *ngFor="let album of albums">
+      <div class="card py-3 text-center">
+        <img
+        [src]="album?.cover_medium"
+          class="card-img-top rounded-circle img-thumbnail bg-dark border-dark border-1 p-2 mb-2 mx-auto"
+          alt="..."
+          style="width: 150px;"
+        />
+        <div class="card-body">
+          <h5 class="card-title fw-normal text__ellipsis">{{ album?.title }}</h5>
         </div>
       </div>
     </div>
